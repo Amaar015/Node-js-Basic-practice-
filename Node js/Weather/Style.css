@@ -1,0 +1,46 @@
+*{
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    outline: none;
+
+}
+body{
+                    display: flex;
+                    height: 100vh;
+                    width: 100%;
+                    background:rgb(23, 23, 52);
+                    justify-content: center;
+                    align-items: center;
+}
+ .box{
+                    background: skyblue;
+                    height: 350px;
+                    width: 250px;
+                    border-radius: 10px;
+                    text-align: center;
+                    box-shadow: 5px 10px 20px red inset;
+ }
+
+ .weathercon{
+                    padding:3rem 0rem;
+                    font-size:2.5rem;
+ }
+ .info h2.locaion{
+             font-size: 1.8rem;
+ }
+ .info p{
+                    padding-top:0.2rem;
+                    color: rgb(158, 156, 156);
+                   font-size: 1rem;
+ }
+
+ .info h1.temp{
+                    padding-top:0.8rem;
+                    font-size: 2rem;
+ }
+ .info h3{
+          color:  rgb(158, 156, 156);
+          font-size: 1rem;
+
+ }
