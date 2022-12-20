@@ -7,8 +7,150 @@
                     <title>Document</title>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
                     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                    <link rel="stylesheet" href="Style.css">
+                    <!-- <link rel="stylesheet" href="./Style.css"> -->
 </head>
+<style>
+       *{
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    outline: none;
+
+}
+body{
+                    display: flex;
+                    height: 100vh;
+                    width: 100%;
+                    background:rgb(23, 23, 52);
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+}
+ .box{
+                    background:#a5bbdd;
+                    height: 20rem;
+                    width: 60vh;
+                    border-radius: 0.5rem;
+                    overflow:hidden;
+                    text-align: center;
+                    box-shadow:0 0.2rem 3rem rgba(0,0,0,0.2);
+                    position: relative;
+                    transform: translate3d(0,0,0);
+                    min-width: 20rem;
+                    min-height: 35rem;
+ }
+
+ .wave{
+                    opacity: 0.3;
+                    position: absolute;
+                    top: 120%;
+                    left: 50%;
+                    background: #fff;
+                    width: 50rem;
+                    height: 50rem;
+                    margin-left: -25rem;
+                    margin-top: -25rem;
+                    transform-origin: 50% 48%;
+                    border-radius: 43%;
+                    animation: drift 3000ms infinite linear;
+                    z-index: 1;
+ }
+ .wave.three{
+                     animation: drift 5000ms infinite linear;
+                     z-index: 2!important;
+                     opacity: 0.2;
+ }
+ .wave.two{
+                    animation: drift 7000ms infinite linear;
+                    z-index: 3!important;
+                    opacity: 0.3;
+}
+.box:after{
+                    content: " ";
+                    display: block;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 11;
+                    transform: translate3d(0,0,0);
+}
+@keyframes drift{
+       from{
+                    transform: rotate(0deg);
+       }
+       to{
+                    transform: rotate(360deg);
+       }
+}
+ 
+     .info{
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    height: 45%;
+                    z-index: 4;
+     }
+
+ 
+  .info h2.locaion{
+             margin-top: 1.5rem;
+             text-align: center;
+             font-weight: 600;
+             font-size: 3rem;
+             /* font */
+ }
+ .fa-street-view{
+                    animation: rotate 3s infinite linear alternate;
+ }
+ @keyframes rotate{
+                    from{
+                                        transform: translateX(-0.5rem);
+                    }
+                    to{
+                                        transform: translateX(0.5rem);
+                    }
+ }
+ 
+ .info p{
+                    padding-top:0.2rem;
+                    color: rgb(158, 156, 156);
+                   font-size: 1rem;
+ }
+
+ .info h1.temp{
+                    padding-top:0.8rem;
+                    font-size: 2rem;
+ }
+ .info h3{
+          color:  rgb(158, 156, 156);
+          font-size: 1rem;
+
+ } 
+
+ .weathercon{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      height: 50%;
+      width: 100%
+}
+.weathercon .fa-sun{
+                    font-size: 4rem;
+                    animation: fas-anim 3s linear alternate infinite;
+}
+@keyframes fas-anim{
+                    from{
+                                        transform: scale(0.8);
+                    }
+                    to{
+                                        transform: scale(1.2);
+                    }
+}
+ 
+
+</style>
 <body>
                     <div class="box">
                                         <div class="wave one"></div>
@@ -20,18 +162,29 @@
                                         
                            </div>
                            <div class="info" >
-                                        <h2 class="locaion" id="location"><i class="fa-solid fa-street-view" style="color: #fff;"></i>{%location%} {%Contry%}</h2>
+                                        <h2 class="locaion" id="location"><i class="fa-solid fa-street-view" style="color: #fff;"></i>{%location%}, {%Contry%}</h2>
                                         <p class="date" id="date" >Tue|1 Nov|2022 | 9:10 AM</p>
-                                        <h1 class="temp" id="temp">{%tempVal%}</h1>
-                                        <h3 class="tempmin_max" id="tempmin-max">Min: {%tempMin%} | Max: {%tempMax%}</h3>
+                                        <h1 class="temp" id="temp">{%tempVal%}&deg;C</h1>
+                                        <h3 class="tempmin_max" id="tempmin-max">Min: {%tempMin%}&deg;C | Max: {%tempMax%}&deg;C</h3>
                            </div>            
                     </div>
 
 <script>
     const currentDate=document.getElementById('date');
     let weathercon =document.getElementById('weathercon');
-    const tempstatus='Clouds';
-
+    const tempStatus='{%tempStatus%}';
+   if(tempStatus=='Sunny'){
+       weathercon.innerHTML="<i class='fa-solid fa-sun' style='color: #eccc68;'></i>"
+   }
+  else if(tempStatus=='Clouds'){
+       weathercon.innerHTML="  <i class='fa-solid fa-cloud' style='color:#f1f2f6'></i>"
+   }
+   else if(tempStatus=='Rainy'){
+       weathercon.innerHTML="  <i class='fa-solid fa-cloud-rain' style='color:#a4b0be'></i>"
+   }else{
+       weathercon.innerHTML="  <i class='fa-solid fa-cloud' style='color:#44c3de'></i>"
+   }
+   
     const getCurrentDay=()=>{
 
           var weekday=new Array(7);
