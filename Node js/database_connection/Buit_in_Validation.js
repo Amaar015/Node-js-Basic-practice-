@@ -20,12 +20,18 @@ const Employee_Schema=new mongoose.Schema({
     },
     job:{type:String,
          uppercase:true,
-         trim:true      
+         trim:true,
+         minlenght:[2,'minimun greater than 2 letters'],
+         maxlenght:10      
     },
     salary:Number,
     supervisor:String,
     status:String,
-    age:Number,
+    age:{
+        type:Number,
+        required:true,
+        enum:[25,20,18,28]
+    },
     hire_date:{
         type:Date,
         default:Date.now
@@ -42,15 +48,14 @@ const Employee_Schema=new mongoose.Schema({
 const Insert=async()=>{
     try{     
     const employee1=new School_employee({
-        name:"                  Ali                                                ",
-        job:"                     computer                       ",
+        name:"Alliza",
+        job:"Biology",
         salary:35000,
         supervisor:"Chemistry Lab",
         status:"active",
-        age:25,
+        age:28,
 
             })
-          
             const result=await School_employee.insertMany([employee1]);
             console.log(result);
             }catch(err){
@@ -59,3 +64,37 @@ const Insert=async()=>{
 }
  Insert();
 
+     const find=async()=>{
+                //  const results1 =await School_employee.find({$and:[{age:25},{job:"Material"}]}).select({id:0});
+                const results =await School_employee.find().select({id:0})
+                .sort({name : 1});
+                
+                //   .sort({name : -1});
+                // .countDocuments();
+
+                // const results3 =await School_employee.find({$nor:[{age:25},{job:"Material"}]}).select({id:0});
+                // const results =await School_employee.find({$not:[{age:25},{job:"Material"}]}).select({id:0});
+             
+                  console.log(results);
+     }
+    //  find();
+
+
+    const UpdateData=async(ages)=>{
+        try{
+            // const result=await School_employee.deleteOne({job:'Software'})
+            // const result=await School_employee.deleteMany({age:30})
+            const result=await School_employee.findByIdAndDelete({age:ages})
+            
+            console.log(result);
+        }catch(err){
+               console.log(`The error occurs is ${err}`);
+        }
+          
+    }
+    // UpdateData(20);
+
+
+
+
+    
